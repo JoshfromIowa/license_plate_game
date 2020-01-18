@@ -15,6 +15,11 @@
         <input type="password" name="pw" id="pw">
         <button type="submit">Log In</button>
     </form>
+    {% with errors = get_flashed_messages() %}
+        {% for error in errors %}
+    <p>{{error}}</p>
+        {% endfor %}
+    {% endwith %}
     <button><a href="/new_user">Create New User</a></button>
 </body>
 </html>

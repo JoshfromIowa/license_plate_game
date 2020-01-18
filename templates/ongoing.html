@@ -4,9 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script defer src="{{ url_for('static', filename='ongoing.js') }}"></script>
     <title>Current Trip</title>
 </head>
 <body>
-    
+    <button><a href="/home">Home</a></button>
+    <button><a href="/logout">Log Out</a></button>
+    <h1>{{trip.name}}</h1>
+    <h4>{{trip.start_time}}</h4>
+    <button><a href="/end_trip/{{trip.id}}">End Trip</a></button>
+    <div id="lists"></div>
 </body>
 </html>

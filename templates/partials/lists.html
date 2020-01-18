@@ -1,0 +1,81 @@
+<h4>United States</h4>
+<table>
+    <tbody>
+        {% for plate in user.plates %}
+            {% if plate.country == 'United States' %}
+        <tr>
+            <td>{{plate.place}}</td>
+            <td><button>
+                {% if plate.id in finds_list %}
+                <a class="found" href="/unfind/{{plate.id}}">{{finds_list.index(plate.id)+1}}</a>
+                {% else %}
+                <a class="found" href="/find/{{plate.id}}">Found!</a>
+                {% endif %}
+            </button></td>
+            <td>{{plate.finds|count}}/{{user.trips|count}}</td>
+        </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+<form class="new" action="/new_plate" method="post">
+    <div class="row">
+        <div class="cell"><input type="text" name="place"></div>
+        <div class="cell"><button type="submit">Found!</button></div>
+        <div class="cell"><input type="hidden" name="country" value="United States"></div>
+    </div>
+</form>
+<h4>Canada</h4>
+<table>
+    <tbody>
+        {% for plate in user.plates %}
+            {% if plate.country == 'Canada' %}
+        <tr>
+            <td>{{plate.place}}</td>
+            <td><button>
+                {% if plate.id in finds_list %}
+                <a class="found" href="/unfind/{{plate.id}}">{{finds_list.index(plate.id)+1}}</a>
+                {% else %}
+                <a class="found" href="/find/{{plate.id}}">Found!</a>
+                {% endif %}
+            </button></td>
+            <td>{{plate.finds|count}}/{{user.trips|count}}</td>
+        </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+<form class="new" action="/new_plate" method="post">
+    <div class="row">
+        <div class="cell"><input type="text" name="place"></div>
+        <div class="cell"><button type="submit">Found!</button></div>
+        <div class="cell"><input type="hidden" name="country" value="Canada"></div>
+    </div>
+</form>
+<h4>Other</h4>
+<table>
+    <tbody>
+        {% for plate in user.plates %}
+            {% if plate.country == 'Other' %}
+        <tr>
+            <td>{{plate.place}}</td>
+            <td><button>
+                {% if plate.id in finds_list %}
+                <a class="found" href="/unfind/{{plate.id}}">{{finds_list.index(plate.id)+1}}</a>
+                {% else %}
+                <a class="found" href="/find/{{plate.id}}">Found!</a>
+                {% endif %}
+            </button></td>
+            <td>{{plate.finds|count}}/{{user.trips|count}}</td>
+        </tr>
+            {% endif %}
+        {% endfor %}
+    </tbody>
+</table>
+<form class="new" action="/new_plate" method="post">
+    <div class="row">
+        <div class="cell"><input type="text" name="place"></div>
+        <div class="cell"><button type="submit">Found!</button></div>
+        <div class="cell"><input type="hidden" name="country" value="Other"></div>
+    </div>
+</form>

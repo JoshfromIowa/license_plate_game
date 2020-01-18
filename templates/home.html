@@ -7,9 +7,31 @@
     <title>License Plate Game!</title>
 </head>
 <body>
-    <h1>Hi {{current_user.username}}!</h1>
-    <button><a href="/new_trip">Start a New Trip!</a></button>
+    <button><a href="/logout">Log Out</a></button>
+    <h1>Hi {{user.username}}!</h1>
+    {% if user.ongoing_trip() %}
+    <button><a href="/ongoing">Go to Ongoing Trip</a></button>
+    {% else %}
+    <button>Start a New Trip!</button>
+    {% endif %}
+    <form action="/start_trip" method="post">
+        <label for="tn">Name your trip!</label>
+        <input type="text" name="tn" id="tn">
+        <button type="submit">Start your trip!</button>
+        <button>Cancel</button>
+    </form>
     <h3>Previous Trips</h3>
-    <table></table>
+    <table>
+        <tbody>
+            {% for trip in user.trips %}
+                {% if trip.end_time %}
+            <tr>
+                <td>{{trip.name}}</td>
+                <td>{{trip.finds|count}}</td>
+            </tr>
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
