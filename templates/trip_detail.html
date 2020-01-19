@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{{trip.name}}</title>
+</head>
+<body>
+    <button><a href="/home">Home</a></button>
+    <button><a href="/logout">Log Out</a></button>
+    <h1>{{trip.name}}</h1>
+    <p>Trip Length: {{trip.end_time-trip.start_time}}</p>
+    <p>Plates Found: {{trip.finds|count}}</p>
+    <table>
+        <tbody>
+            {% for find in finds %}
+            <tr>
+                <td>{{finds.index(find)+1}}</td>
+                <td>{{find.plate.place}}</td>
+                <td>{{find.found_at-trip.start_time}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

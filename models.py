@@ -147,10 +147,9 @@ class Trip(db.Model):
     start_time = db.Column(db.DateTime, server_default=func.now())
     end_time = db.Column(db.DateTime)
 
-    def finds_list(self):
-        sorted = Find.query.filter_by(trip_id=self.id).order_by(Find.found_at.asc()).all()
-        finds_list = [find.plate.id for find in sorted]
-        return finds_list
+    def ordered_finds(self):
+        ordered = Find.query.filter_by(trip_id=self.id).order_by(Find.found_at.asc()).all()
+        return ordered
     def end_trip(self):
         self.end_time = func.now()
         db.session.commit()

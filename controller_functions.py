@@ -48,7 +48,7 @@ def ongoing():
 def render_lists():
     user = User.current_user(session['uid'])
     trip = Trip.current_trip(session['tid'])
-    finds_list = trip.finds_list()
+    finds_list = [find.plate for find in trip.ordered_finds()]
     return render_template('partials/lists.html', user=user, trip=trip, finds_list=finds_list)
 
 def find(id):
@@ -73,6 +73,11 @@ def home():
     if not user:
         return redirect('/logout')
     return render_template('home.html', user = user)
+
+def trip_detail(id):
+    trip = Trip.current_trip(id)
+    finds = trip.ordered_finds()
+    return render_template('trip_detail.html', trip=trip, finds = finds)
 
 def start_trip():
     validate = Trip.validate_trip(request.form)
