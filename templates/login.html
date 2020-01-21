@@ -4,22 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/universal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
     <title>License Plate Game!</title>
 </head>
 <body>
-    <h1>Log In!</h1>
-    <form action="/login" method="post">
-        <label for="un">Username</label>
-        <input type="text" name="un" id="in">
-        <label for="pw">Password</label>
-        <input type="password" name="pw" id="pw">
-        <button type="submit">Log In</button>
-    </form>
-    {% with errors = get_flashed_messages() %}
-        {% for error in errors %}
-    <p>{{error}}</p>
-        {% endfor %}
-    {% endwith %}
-    <button><a href="/new_user">Create New User</a></button>
+    <div class="header">
+        <h2 class="sm-4 md-3 lg-6">License Plate Game!</h2>
+    </div>
+    <div class="body">
+        <h1>Log In!</h1>
+        <form id="login" action="/login" method="post">
+            <div class="row">
+                <p class="label lg-3 md-2 sm-4">Username</p>
+                <input class="lg-3 md-3 sm-4" type="text" name="un" id="in">
+            </div>
+            <div class="row">
+                {% with errors = get_flashed_messages(category_filter=['log_un']) %}
+                    {% for error in errors %}
+                <p class="error">{{error}}</p>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+            <div class="row">
+                <p class="label lg-3 md-2 sm-4">Password</p>
+                <input class="lg-3 md-3 sm-4" type="password" name="pw" id="pw">
+            </div>
+            <div class="row">
+                {% with errors = get_flashed_messages(category_filter=['log_pw']) %}
+                    {% for error in errors %}
+                <p class="error">{{error}}</p>
+                    {% endfor %}
+                {% endwith %}
+            </div>
+        </form>
+        <button class="sm-4 md-2 lg-3" type="submit" form="login">Log In</button>
+        <a href="/new_user"><button class="sm-4 md-2 lg-3">Create New User</button></a>
+    </div>
 </body>
 </html>

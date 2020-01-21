@@ -94,15 +94,14 @@ class User(db.Model):
 
     @classmethod
     def reg_validate(cls, form):
-        print('Validating new user')
         if len(form['un']) < 1:
             flash('Please enter a username', 'un')
         else:
             users = cls.query.filter_by(username=form['un']).all()
             if users:
-                flash('That username is already taken','reg_em')
+                flash('That username is already taken','un')
         if len(form['pw']) < 8:
-            flash('Password must be at least eight characters', 'reg_pw')
+            flash('Password must be at least eight characters', 'pw')
         if form['cp'] != form['pw']:
             flash('Passwords must match', 'cp')
         if '_flashes' in session.keys():
@@ -159,7 +158,7 @@ class Trip(db.Model):
         if len(form['tn']) < 1:
             flash('Please enter a name for your trip', 'tn')
         else:
-            trips = cls.query.filter_by(name=form['tn']).all()
+            trips = cls.query.filter_by(user_id=session['uid'], name=form['tn']).all()
             if trips:
                 flash('You already have a trip by that name!','tn')
         if '_flashes' in session.keys():
@@ -190,11 +189,11 @@ class Plate(db.Model):
     @classmethod
     def validate_plate(cls, form):
         if len(form['place']) < 1:
-            flash('Place name cannot be blank', 'place')
+            flash('Place name cannot be blank', form['country'])
         else:
             trips = cls.query.filter_by(user_id=session['uid'], place=form['place']).all()
             if trips:
-                flash('That place is already on your list!','place')
+                flash('That place is already on your list!', form['country'])
         if '_flashes' in session.keys():
             return False
         return True
@@ -207,7 +206,6 @@ class Plate(db.Model):
         )
         db.session.add(new_plate)
         db.session.commit()
-        print(new_plate.id)
         return new_plate.id
 
 class Find(db.Model):

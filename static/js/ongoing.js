@@ -4,8 +4,22 @@ $(function(){
         url: "/render_lists"
     }).done(function(res){
         $('#lists').html(res)
+    });
+    $.ajax({
+        method: "GET",
+        url: "/trip_time"
+    }).done(function(res){
+        $('#current_time').text(res)
     })
 });
+setInterval(function(){
+    $.ajax({
+        method: "GET",
+        url: "/trip_time"
+    }).done(function(res){
+        $('#current_time').html(res)
+    })
+}, 1000);
 $('#lists').on('click', '.found', function(){
     $.ajax({
         method: "GET",
@@ -16,7 +30,6 @@ $('#lists').on('click', '.found', function(){
     return false
 });
 $('#lists').on('submit', '.new', function(){
-    form = 
     $.ajax({
         method: "POST",
         url: $(this).attr('action'),
@@ -25,4 +38,10 @@ $('#lists').on('submit', '.new', function(){
         $('#lists').html(res)
     });
     return false
-})
+});
+$('#open_end').click(function(){
+    $('.modal').css('display', 'block')
+});
+$('#cancel').click(function(){
+    $('.modal').css('display', 'none')
+});

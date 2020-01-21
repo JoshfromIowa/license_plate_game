@@ -1,6 +1,7 @@
 from config import db
 from models import User, Trip, Plate, Find
 from flask import render_template, request, redirect, session, flash
+from datetime import datetime
 
 def index():
     if 'uid' in session:
@@ -83,8 +84,13 @@ def start_trip():
     validate = Trip.validate_trip(request.form)
     if validate:
         new_trip = Trip.start_trip(request.form)
-        return redirect('/ongoing')
-    return redirect('/home')
+        return 'passed'
+    return render_template('partials/modalerr.html')
+
+def trip_time():
+    trip = Trip.current_trip(session['tid'])
+    trip_time = (datetime.utcnow().replace(microsecond=0)-trip.start_time)
+    return render_template('partials/time.html', time=str(trip_time))
 
 def end_trip(id):
     trip = Trip.current_trip(id)

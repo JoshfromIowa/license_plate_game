@@ -4,16 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/universal.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ongoing.css') }}">
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script defer src="{{ url_for('static', filename='ongoing.js') }}"></script>
+    <script defer src="{{ url_for('static', filename='js/ongoing.js') }}"></script>
     <title>Current Trip</title>
 </head>
 <body>
-    <button><a href="/home">Home</a></button>
-    <button><a href="/logout">Log Out</a></button>
-    <h1>{{trip.name}}</h1>
-    <h4>{{trip.start_time}}</h4>
-    <button><a href="/end_trip/{{trip.id}}">End Trip</a></button>
-    <div id="lists"></div>
+    <div class="modal">
+        <div class="modal-content sm-3 md-4 lg-6">
+            <h4>Are you sure you want to end your trip?</h4>
+            <a href="/end_trip/{{trip.id}}"><button class="end sm-2 md-3 lg-6">Yes!</button></a>
+            <button class="sm-2 md-3 lg-6" id="cancel">No</button>
+        </div>
+    </div>
+    <div class="header">
+        <h2 class="sm-4 md-3 lg-6">License Plate Game!</h2>
+        <div class="nav sm-4 md-2 lg-4">
+            <a href="/home"><button class="sm-1 md-6 lg-12">Home</button></a>
+            <a href="/logout"><button class="sm-1 md-6 lg-12">Log Out</button></a>
+        </div>
+    </div>
+    <div class="body">
+        <h1 class="ms-4 md-3 lg-8">{{trip.name}}</h1>
+        <div id="current_time" class="stats sm-4 md-3 lg-4"></div>
+        <button id="open_end" class="big_button end sm-4 md-4 lg-8">End Trip</button></a>
+        <div id="lists" class="sm-4 md-6 lg-12"></div>
+    </div>
 </body>
 </html>
